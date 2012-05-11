@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset=utf-8 />
+
+		<title>Ulway protorype</title>
+		<link rel="stylesheet" href="libs/jquery.mobile.css" />
+		<link rel="stylesheet" href="css/main.css" />
+
+		<script type="text/javascript" charset="utf-8" src="libs/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="libs/jquery.mobile.js"></script>
+
+		<script type="text/javascript" charset="utf-8" src="libs/phonegap.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+	</head>
+	<body>
+
+		<div data-role="page" id="dashboard">
+			<div data-role="header" data-position="fixed">
+				<a href="#add-post" data-icon="plus">Сообщить</a>
+				<h1>Dashboard</h1>
+			</div>
+
+			<div data-role="content" id="dashboard-list">
+
+			</div>
+		</div>
+
+		<div data-role="page" id="add-post">
+			<div data-role="header">
+				<h1>Сообщить</h1>
+			</div>
+
+			<div data-role="content">
+				<h2>Что?</h2>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <input type="radio" name="radio-choice-b" id="radio-choice-a" >
+					<label for="radio-choice-a" data-corners="true" >Экипаж ДПС</label>
+
+					<input type="radio" name="radio-choice-b" id="radio-choice-b">
+					<label for="radio-choice-b" data-corners="true" >Камера</label>
+
+					<input type="radio" name="radio-choice-b" id="radio-choice-c">
+					<label for="radio-choice-c" data-corners="true" >ДТП</label>
+			    </fieldset>
+				<h2>Где?</h2>
+				<div data-role="fieldcontain" id="post-where">
+					<a data-role="button" href="#add-street">Добавить улицу</a>
+				</div>
+				<h2>Как?</h2>
+				<div data-role="fieldcontain">
+					<textarea name="textarea" id="post_comment"></textarea>
+				</div>
+
+				<a data-role="button">Ok</a>
+			</div>
+		</div>
+
+		<div data-role="page" id="add-street">
+			<div data-role="header">
+				<h1>Добавить улицу</h1>
+			</div>
+
+			<div data-role="content">
+				<ul data-role="listview" id="street-select">
+					<li><a href="#" data-id="1">Языкова 3-й переулок</a></li>
+					<li><a href="#" data-id="2">Языкова переулок</a></li>
+					<li><a href="#" data-id="3">Чистопрудная улица</a></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
