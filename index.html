@@ -16,7 +16,7 @@
 	<body>
 
 		<div data-role="page" id="dashboard">
-			<div data-role="header" data-position="fixed">
+			<div data-role="header">
 				<a href="#add-post" data-icon="plus">Сообщить</a>
 				<h1>Dashboard</h1>
 			</div>
@@ -33,16 +33,25 @@
 
 			<div data-role="content">
 				<h2>Что?</h2>
-				<fieldset data-role="controlgroup" data-type="horizontal">
-			        <input type="radio" name="radio-choice-b" id="radio-choice-a" >
-					<label for="radio-choice-a" data-corners="true" >Экипаж ДПС</label>
+				<div data-role="fieldcontain" id="radio-group">
+					<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+				        <input type="radio" name="post_type" id="radio-choice-a" value="ДПС">
+						<label for="radio-choice-a" data-corners="true" >ДПС</label>
 
-					<input type="radio" name="radio-choice-b" id="radio-choice-b">
-					<label for="radio-choice-b" data-corners="true" >Камера</label>
+						<input type="radio" name="post_type" id="radio-choice-b" value="Камера">
+						<label for="radio-choice-b" data-corners="true">Камера</label>
 
-					<input type="radio" name="radio-choice-b" id="radio-choice-c">
-					<label for="radio-choice-c" data-corners="true" >ДТП</label>
-			    </fieldset>
+						<input type="radio" name="post_type" id="radio-choice-c" value="ДТП">
+						<label for="radio-choice-c" data-corners="true">ДТП</label>
+
+						<input type="radio" name="post_type" id="radio-choice-d" value="Ремонт">
+						<label for="radio-choice-d" data-corners="true">Ремонт</label>
+
+						<input type="radio" name="post_type" id="radio-choice-e" value="">
+						<label for="radio-choice-e" data-corners="true" >Совет</label>
+				    </fieldset>
+				</div>
+
 				<h2>Где?</h2>
 				<div data-role="fieldcontain" id="post-where">
 					<a data-role="button" href="#add-street">Добавить улицу</a>

@@ -16,12 +16,10 @@ var render = function (posts) {
 	posts.forEach(function(post){
 		console.log(post);
 		view +=
-		'<div data-role="collapsible" data-mini="true" data-iconpos="right" data-collapsed="true">' +
+		'<div data-role="collapsible" data-mini="true" data-iconpos="right">' +
 		   '<h3>' + post.text + '</h3>' +
 		   '<p>' + post.created_at +'</p>' +
 		'</div>';
-
-		index++;
 	});
 	
 	return view;
@@ -86,7 +84,18 @@ var init = function () {
 		}
 	});
 
-	load(currentUser);
+	$('#add-post').delegate('#submit', 'click', function () {
+		var post = fetchPost();
+		if (post.length > 140) {
+			alert('Многа букав');
+			return false;
+		}
+	});
+
+	$('#add-post').delegate('input', 'change', checkWidth);
+	$('#add-post').delegate('textarea', 'keyup', checkWidth);
+
+	load('ulway');
 };
 	
 init.called = false;
