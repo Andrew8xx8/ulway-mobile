@@ -4,7 +4,9 @@ var $dashboard,
 	$dashboardList;
 
 var post_template = '[{timestamp}] {type}{location}{comment}#ulway';
-
+var streetList = '<ul data-role="listview">{items}</ul>'
+var streetListItem = '<li><a href="#" data-id="{id}">{name}</a></li>';
+var streetsNoFound = '<h3>Такой улицы нет, но всегда можно добавить =)</h3>'
 var fetchTemplate = function(template, data){
 	var result = template;
 	
@@ -115,14 +117,54 @@ var checkWidth = function () {
 	setChars(140 - post.length);
 };
 
+var loadStreets = function (streetName) {
+	var url = 'http://localhost/ulway_server/www/streets';
+
+	if (streetName != '') {
+		url += '/' + streetName;
+	}
+
+	$.mobile.showPageLoadingMsg();
+
+	var timeoutId = window.setTimeout(function () {
+		 $.mobile.hidePageLoadingMsg();
+	}, 3000);
+	
+	$.getJSON(url, function(json) {
+		if (json.length != 'undefined') {
+			$('#streets_list').html(renderStreets(json));
+			$('#streets_list').trigger( "create" );
+		} else {
+			$('#streets_list').html(fetchTemplate(streetsNoFound));
+		}
+		$.mobile.hidePageLoadingMsg();
+
+		window.clearTimeout(timeoutId);
+	});
+};
+
+var renderStreets = function (streetsList) {
+	var view = '';
+
+	streetsList.forEach(function(street){
+		view += fetchTemplate (streetListItem, {
+			id: street.street_id,
+			name: street.name,
+		});
+	});
+		
+	return fetchTemplate (streetList, {items:view});
+}
+
 var init = function () {
 	if (init.called) {
 		return;
 	}
+
 	init.called = true;
 
 	$dashboard = $('#dashboard');
-	$streetSelect = $('#street-select');
+	$streetSelect = $('#add-street');
 
 	// Клик на любой тумбнайл
 	$streetSelect.delegate('a', 'click', function () {
@@ -143,6 +185,10 @@ var init = function () {
 		return false;
 	});
 	
+	$streetSelect.delegate('#select_street', 'keyup', function () {
+		loadStreets($(this).val());
+	});
+
 	$('#post-where').delegate('a', 'click', function () {
 		if ($(this).attr('data-id') > 0) {
 			var id = "street_" + $(this).attr('data-id');
@@ -163,6 +209,7 @@ var init = function () {
 	$('#add-post').delegate('textarea', 'keyup', checkWidth);
 
 	load('ulway');
+	loadStreets('');
 };
 	
 init.called = false;
