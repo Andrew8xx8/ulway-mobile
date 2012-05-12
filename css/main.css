@@ -8,3 +8,9 @@
 .red {
 	color: red;
 }
+#dashboard h1 span{
+	display: inline-block;
+	height: 20px;
+	padding-left: 24px;
+	background: url(../img/logo_header.png) 0 2px no-repeat;
+}
