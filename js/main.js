@@ -6,7 +6,7 @@ var fetchTemplate = function(template_name, data){
 	var result = $(template_name).html();
 	
 	for(var i in data) {
-		name = '{' + i + '}';
+		var name = new RegExp('{' + i + '}','g');
 		result = result.replace(name, data[i]);
 	}
 
