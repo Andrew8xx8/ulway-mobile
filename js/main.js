@@ -182,8 +182,10 @@ var init = function () {
 	init.called = true;
 
 	$('#add-street').delegate('a', 'click', function () {
+		var id = $(this).attr('data-id');
+		
 		$('#post-where').prepend(fetchTemplate('#street_input', {
-			id: $(this).attr('data-id'),
+			id: id,
 			text: $(this).text()
 		}));
 
