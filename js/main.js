@@ -3,14 +3,10 @@
 var $dashboard,
 	$dashboardList;
 
-var post_template = '[{timestamp}] {type}{location}{comment}#ulway';
-var streetList = '<ul data-role="listview">{items}</ul>'
-var streetListItem = '<li><a href="#" data-id="{id}">{name}</a></li>';
-var streetsNoFound = '<h3>Такой улицы нет, но всегда можно добавить =)</h3>'
 var ulwayApiUrl = 'http://ulway.net/api';
 
-var fetchTemplate = function(template, data){
-	var result = template;
+var fetchTemplate = function(template_name, data){
+	var result = $(template_name).html();
 	
 	for(var i in data) {
 		name = '{' + i + '}';
@@ -31,11 +27,10 @@ var render = function (posts) {
 	var view = '';
 
 	posts.forEach(function(post){
-		view +=
-		'<div data-role="collapsible" data-mini="true" data-iconpos="right">' +
-		   '<h3>' + post.text + '</h3>' +
-		   '<p>' + post.created_at +'</p>' +
-		'</div>';
+		view += fetchTemplate('#dashboard_list_item', {
+			text: post.text,
+		   	created_at: post.created_at
+		})
 	});
 
 	return view;
@@ -113,7 +108,7 @@ var fetchPost = function () {
 	var hours = currentTime.getHours();
 	var minutes = currentTime.getMinutes();
 
-	return fetchTemplate (post_template, {
+	return fetchTemplate ('#post_template', {
 		type: addSpace($('input:radio[name=post_type]:checked').val()),
 		timestamp: getTime(),
 		location: addSpace(generateLocation()),
@@ -159,7 +154,7 @@ var loadStreets = function (streetName) {
 				$('#streets_list').html(renderStreets(json));
 				$('#streets_list').trigger( "create" );
 			} else {
-				$('#streets_list').html(fetchTemplate(streetsNoFound));
+				$('#streets_list').html(fetchTemplate('#streets_not_found'));
 			}
 
 			$.mobile.hidePageLoadingMsg();
@@ -173,13 +168,13 @@ var renderStreets = function (streetsList) {
 	var view = '';
 
 	streetsList.forEach(function(street){
-		view += fetchTemplate (streetListItem, {
+		view += fetchTemplate ('#street_list_item', {
 			id: street.street_id,
 			name: street.name,
 		});
 	});
 		
-	return fetchTemplate (streetList, {items:view});
+	return fetchTemplate ('#street_list', {items:view});
 }
 
 var init = function () {
@@ -192,17 +187,14 @@ var init = function () {
 	$dashboard = $('#dashboard');
 	$streetSelect = $('#add-street');
 
-	// Клик на любой тумбнайл
 	$streetSelect.delegate('a', 'click', function () {
-		var id = "street_" + $(this).attr('data-id');
+		$('#post-where').prepend(fetchTemplate('#street_input', {
+			id: $(this).attr('data-id'),
+			text: $(this).text()
+		}));
 
-		$('#post-where').prepend(
-			'<div><input type="text" name="post_where[]" id="input_' + id  + '" value="' + $(this).text() + '"  />' +
-			'<a data-id="' + $(this).attr('data-id') + '" id="delete_' + id  + '" data-role="button" data-icon="delete" data-iconpos="notext" data-mini="true" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" title="Delete"> </a></div>'
-		);
-
-		$('#input_' + id).textinput();
-		$('#delete_' + id).button();
+		$('#input_street_' + id).textinput();
+		$('#delete_street_' + id).button();
 
 		checkWidth();
 
@@ -255,7 +247,6 @@ var init = function () {
 	$('#add-post').delegate('textarea', 'keyup', checkWidth);
 
 	load('ulway');
-	loadStreets('А');
 	checkWidth();
 };
 	

@@ -81,5 +81,30 @@
 		
 			</div>
 		</div>
+
+		<div id="templates">
+			<div id="post_template">[{timestamp}] {type}{location}{comment}#ulway</div>
+			<div id="street_list">
+				<ul data-role="listview">{items}</ul>
+			</div>
+			<div id="street_list_item">
+				<li><a href="#" data-id="{id}">{name}</a></li>
+			</div>
+			<div id="streets_not_found">
+				<h3>Такой улицы нет, но всегда можно добавить =)</h3>
+			</div>
+			<div id="street_input">
+				<div>
+					<input type="text" name="post_where[]" id="input_street_{id}" value="{text}"  />
+					<a data-id="{id}" id="delete_street_{id}" data-role="button" data-icon="delete" data-iconpos="notext" data-mini="true" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" title="Delete">&nbsp;</a>
+				</div>
+			</div>
+			<div id="dashboard_list_item">
+				<div data-role="collapsible" data-mini="true" data-iconpos="right">
+		   			<h3>{text}</h3>
+		   			<p>{created_at}</p>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
