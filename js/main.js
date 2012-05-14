@@ -2,7 +2,14 @@
 
 var ulwayApiUrl = 'http://ulway.net/api';
 
-var fetchTemplate = function(template_name, data){
+var addZero = function (i) {
+    if (i < 10) 
+        return "0" + i;
+    else
+        return "" + i;
+}
+
+var fetchTemplate = function(template_name, data) {
 	var result = $(template_name).html();
 	
 	for(var i in data) {
@@ -97,7 +104,7 @@ var getTime = function () {
 	var hours = currentTime.getHours();
 	var minutes = currentTime.getMinutes();
 
-	return hours + ':' + minutes;
+	return addZero(hours) + ':' + addZero(minutes);
 }
 
 var fetchPost = function () {
@@ -194,7 +201,7 @@ var init = function () {
 
 	$('#add-street').delegate('a', 'click', function () {
 		var id = $(this).attr('data-id');
-		
+
 		$('#post-where').prepend(fetchTemplate('#street_input', {
 			id: id,
 			text: $(this).text()
@@ -235,17 +242,13 @@ var init = function () {
 		} else {
 			$.mobile.showPageLoadingMsg();
 
-			$.ajax({
-				type: 'POST',
-				url: ulwayApiUrl + '/post',
-				data: {
-					post: fetchPost(),
-					time: getTime(),
-					locations: generateLocationIds()
-				},
-				complite: function(data) {
-					$.mobile.hidePageLoadingMsg();
-				}
+			$.getJSON(ulwayApiUrl + '/post?callback=?', {
+				post: fetchPost(),
+				locations: generateLocationIds()
+			}, function(data) {
+				$.mobile.hidePageLoadingMsg();
+				$.mobile.changePage('#dashboard');
+				showMessage('Успешно отправлено. Будет опубликовано в течении 6 минут.');
 			});
 		}
 	});
