@@ -174,6 +174,17 @@ var renderStreets = function (streetsList) {
 	return fetchTemplate ('#street_list', {items:view});
 }
 
+var showMessage = function (text) {
+	var dialog = fetchTemplate('#dialog_box', {message: text});
+	$(dialog)
+		.css({ "display":"block", "opacity":0.8, "top": $(window).scrollTop() + 100 })
+		.appendTo( $("body") )
+		.delay( 1500 )
+		.fadeOut( 300, function(){
+			$(this).remove();
+		});
+}
+
 var init = function () {
 	if (init.called) {
 		return;
