@@ -7,6 +7,8 @@ var post_template = '[{timestamp}] {type}{location}{comment}#ulway';
 var streetList = '<ul data-role="listview">{items}</ul>'
 var streetListItem = '<li><a href="#" data-id="{id}">{name}</a></li>';
 var streetsNoFound = '<h3>Такой улицы нет, но всегда можно добавить =)</h3>'
+var ulwayApiUrl = 'http://8xx8.ru/ulway';
+
 var fetchTemplate = function(template, data){
 	var result = template;
 	
@@ -29,14 +31,13 @@ var render = function (posts) {
 	var view = '';
 
 	posts.forEach(function(post){
-		console.log(post);
 		view +=
 		'<div data-role="collapsible" data-mini="true" data-iconpos="right">' +
 		   '<h3>' + post.text + '</h3>' +
 		   '<p>' + post.created_at +'</p>' +
 		'</div>';
 	});
-	
+
 	return view;
 };
 
@@ -55,7 +56,7 @@ var load = function (username) {
 		 $.mobile.hidePageLoadingMsg();
 	}, 3000);
 	
-	$.getJSON(url,function(json) {
+	$.getJSON(url, function(json) {
 		$('#dashboard-list').html(render(json.results));
 
 		$.mobile.hidePageLoadingMsg();
@@ -80,18 +81,41 @@ var generateLocation = function () {
 		if (count > 0) {
 			location += ' x ';	
 		}
+		var street_name = $(street).val();
+		location += street_name.charAt(0).toUpperCase() + street_name.substr(1);
 
-		location += $(street).val();
 		count++;
 	});
 
 	return location;
 }
 
+var generateLocationIds = function () {
+	var location = [];
+
+	$('#post-where input').each( function(index, street) {
+		location.push($(street).attr('data-id'));
+	});
+
+	return location;
+}
+
+var getTime = function () {
+	var currentTime = new Date();
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMinutes();
+
+	return hours + ':' + minutes;
+}
+
 var fetchPost = function () {
+	var currentTime = new Date();
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMinutes();
+
 	return fetchTemplate (post_template, {
 		type: addSpace($('input:radio[name=post_type]:checked').val()),
-		timestamp: '00:00',
+		timestamp: getTime(),
 		location: addSpace(generateLocation()),
 		comment: addSpace($('#post_comment').val()),
 	});
@@ -118,7 +142,7 @@ var checkWidth = function () {
 };
 
 var loadStreets = function (streetName) {
-	var url = 'http://localhost/ulway_server/www/streets';
+	var url = ulwayApiUrl + '/streets';
 
 	if (streetName != '') {
 		url += '/' + streetName;
@@ -129,18 +153,20 @@ var loadStreets = function (streetName) {
 	var timeoutId = window.setTimeout(function () {
 		 $.mobile.hidePageLoadingMsg();
 	}, 3000);
-	
-	$.getJSON(url, function(json) {
-		if (json.length != 'undefined') {
-			$('#streets_list').html(renderStreets(json));
-			$('#streets_list').trigger( "create" );
-		} else {
-			$('#streets_list').html(fetchTemplate(streetsNoFound));
-		}
-		$.mobile.hidePageLoadingMsg();
 
-		window.clearTimeout(timeoutId);
-	});
+	$.getJSON(url + '?callback=?', function(json, msg) {
+			if (json.length != 'undefined') {
+				$('#streets_list').html(renderStreets(json));
+				$('#streets_list').trigger( "create" );
+			} else {
+				$('#streets_list').html(fetchTemplate(streetsNoFound));
+			}
+
+			$.mobile.hidePageLoadingMsg();
+
+			window.clearTimeout(timeoutId);
+		}
+	);
 };
 
 var renderStreets = function (streetsList) {
@@ -202,6 +228,23 @@ var init = function () {
 		if (post.length > 140) {
 			alert('Многа букав');
 			return false;
+		} else if (post.length < 10) {
+			alert('Мала букав');
+		} else {
+			$.mobile.showPageLoadingMsg();
+
+			$.ajax({
+				type: 'POST',
+				url: ulwayApiUrl + '/post',
+				data: {
+					post: fetchPost(),
+					time: getTime(),
+					locations: generateLocationIds()
+				},
+				complite: function(data) {
+					$.mobile.hidePageLoadingMsg();
+				}
+			});
 		}
 	});
 
@@ -209,7 +252,8 @@ var init = function () {
 	$('#add-post').delegate('textarea', 'keyup', checkWidth);
 
 	load('ulway');
-	loadStreets('');
+	loadStreets('А');
+	checkWidth();
 };
 	
 init.called = false;
