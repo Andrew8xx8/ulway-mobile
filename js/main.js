@@ -7,7 +7,7 @@ var post_template = '[{timestamp}] {type}{location}{comment}#ulway';
 var streetList = '<ul data-role="listview">{items}</ul>'
 var streetListItem = '<li><a href="#" data-id="{id}">{name}</a></li>';
 var streetsNoFound = '<h3>Такой улицы нет, но всегда можно добавить =)</h3>'
-var ulwayApiUrl = 'http://8xx8.ru/ulway';
+var ulwayApiUrl = 'http://ulway.net/api';
 
 var fetchTemplate = function(template, data){
 	var result = template;
