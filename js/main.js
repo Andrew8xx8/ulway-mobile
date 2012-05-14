@@ -92,7 +92,8 @@ var generateLocation = function () {
 var generateLocationIds = function () {
 	var location = [];
 
-	$('#post-where input').each( function(index, street) {
+	$('#post-where a').each( function(index, street) {
+		console.log(street);
 		location.push($(street).attr('data-id'));
 	});
 
@@ -221,6 +222,16 @@ var init = function () {
 		loadStreets($(this).val());
 	});
 
+	$(document).delegate("#add-street","pagebeforehide", function () {
+		var name = '';
+
+		if ($('#select_street').val() != '') {
+			name = $('#select_street').val();
+		}
+
+		loadStreets(name);
+	});
+
 	$('#post-where').delegate('a', 'click', function () {
 		if ($(this).attr('data-id') > 0) {
 			var id = "street_" + $(this).attr('data-id');
@@ -257,6 +268,7 @@ var init = function () {
 	$('#add-post').delegate('textarea', 'keyup', checkWidth);
 
 	load('ulway');
+
 	checkWidth();
 };
 	
