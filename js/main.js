@@ -154,8 +154,8 @@ var loadStreets = function (streetName) {
 		 $.mobile.hidePageLoadingMsg();
 	}, 3000);
 
-	$.getJSON(url + '?callback=?', function(json, msg) {
-			if (json.length != 'undefined') {
+	$.getJSON(url + '?callback=?', function(json) {
+			if (json.length && json.length > 0) {
 				$('#streets_list').html(renderStreets(json));
 				$('#streets_list').trigger( "create" );
 			} else {
@@ -218,7 +218,10 @@ var init = function () {
 	$('#post-where').delegate('a', 'click', function () {
 		if ($(this).attr('data-id') > 0) {
 			var id = "street_" + $(this).attr('data-id');
+
 			$('#input_' + id).parent().remove();
+			checkWidth();
+
 			return false;
 		}
 	});
