@@ -1,8 +1,5 @@
 (function($, window){
 
-var $dashboard,
-	$dashboardList;
-
 var ulwayApiUrl = 'http://ulway.net/api';
 
 var fetchTemplate = function(template_name, data){
@@ -184,10 +181,7 @@ var init = function () {
 
 	init.called = true;
 
-	$dashboard = $('#dashboard');
-	$streetSelect = $('#add-street');
-
-	$streetSelect.delegate('a', 'click', function () {
+	$('#add-street').delegate('a', 'click', function () {
 		$('#post-where').prepend(fetchTemplate('#street_input', {
 			id: $(this).attr('data-id'),
 			text: $(this).text()
@@ -203,7 +197,7 @@ var init = function () {
 		return false;
 	});
 	
-	$streetSelect.delegate('#select_street', 'keyup', function () {
+	$('#add-street').delegate('#select_street', 'keyup', function () {
 		loadStreets($(this).val());
 	});
 
