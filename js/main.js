@@ -218,6 +218,10 @@ var init = function () {
 		return false;
 	});
 	
+	$('#add-street').delegate('#select_street', 'focus', function () {
+		loadStreets($(this).val());
+	});
+
 	$('#add-street').delegate('#select_street', 'keyup', function () {
 		loadStreets($(this).val());
 	});
