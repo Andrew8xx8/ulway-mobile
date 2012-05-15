@@ -16,6 +16,7 @@
 #dashboard-list {
 	background: #fff;
 	margin: 10px;
+	padding: 10px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
 }
@@ -69,6 +70,9 @@ h2 {
 	font-size: 12px;
 	font-weight: 100;
 	padding: 0 10px;
+}
+.bot_info {
+	overflow: hidden;
 }
 .bot_info img {
 	float: left;
