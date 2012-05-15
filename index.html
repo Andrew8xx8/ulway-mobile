@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<meta charset=utf-8 />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<title>Ulway — Дорожный докладатор</title>
-		<link rel="stylesheet" href="libs/jquery.mobile.css" />
-		<link rel="stylesheet" href="css/main.css" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-		<script type="text/javascript" charset="utf-8" src="libs/jquery.js"></script>
-		<script type="text/javascript" charset="utf-8" src="libs/jquery.mobile.js"></script>
+		<title>Ulway — Дорожный докладатор</title> 
+
+		<!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css"-->
+		<link rel="stylesheet" href="libs/jquery.mobile.css">
+		<link rel="stylesheet" href="css/main.css">
+
+		<script src="libs/jquery.js"></script>
+		<script src="libs/jquery.mobile.js"></script>
 
 		<script type="text/javascript" charset="utf-8" src="libs/phonegap.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
@@ -18,17 +20,18 @@
 
 		<div data-role="page" id="dashboard">
 
-			<div data-role="content" class="bot_info">
-				<img src="img/ulway.png" alt="" width="128" height="128">
-				<p>
-					<b>Дорожный докладатор</b> — проект, следящий за дорожной обстановкой городе Ульяновске.
-				</p>
-			</div>
+			<div data-role="content">
+				<div class="bot_info">
+					<img src="img/ulway.png" alt="" width="128" height="128">
+					<p>
+						<b>Дорожный докладатор</b> — проект, следящий за дорожной обстановкой городе Ульяновске.
+					</p>
+				</div>
 
-			<a href="#add-post" data-role="button" data-mini="true" data-theme="b" data-icon="plus">Сообщить обстановочку</a>
+				<a href="#add-post" data-role="button" data-mini="true" data-theme="b" data-icon="plus">Сообщить обстановочку</a>
 
-			<div data-role="content" id="dashboard-list">
-
+				<div id="dashboard-list">
+				</div>
 			</div>
 
 			<div data-role="footer">
@@ -45,7 +48,7 @@
 				<h2>Что?</h2>
 				<div data-role="fieldcontain" id="radio-group">
 					<fieldset data-role="controlgroup" data-mini="true">
-						<input type="radio" name="post_type" id="radio-choice-a" value="ДПС" checked="true">
+						<input type="radio" name="post_type" id="radio-choice-a" value="ДПС" checked="checked">
 						<label for="radio-choice-a" data-corners="true" >ДПС</label>
 
 						<input type="radio" name="post_type" id="radio-choice-b" value="Камера">
