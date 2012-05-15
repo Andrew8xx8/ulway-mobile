@@ -45,7 +45,7 @@
 				<h2>Что?</h2>
 				<div data-role="fieldcontain" id="radio-group">
 					<fieldset data-role="controlgroup" data-mini="true">
-				        <input type="radio" name="post_type" id="radio-choice-a" value="ДПС" checked="true">
+						<input type="radio" name="post_type" id="radio-choice-a" value="ДПС" checked="true">
 						<label for="radio-choice-a" data-corners="true" >ДПС</label>
 
 						<input type="radio" name="post_type" id="radio-choice-b" value="Камера">
@@ -59,7 +59,7 @@
 
 						<input type="radio" name="post_type" id="radio-choice-e" value="">
 						<label for="radio-choice-e" data-corners="true" >Совет</label>
-				    </fieldset>
+					</fieldset>
 				</div>
 
 				<h2>Где?</h2>
@@ -110,13 +110,38 @@
 			</div>
 			<div id="dashboard_list_item">
 				<div data-role="collapsible" data-mini="true" data-iconpos="right">
-		   			<h3>{text}</h3>
-		   			<p>{created_at}</p>
+					<h3>{text}</h3>
+					<p>{created_at}</p>
 				</div>
 			</div>
 			<div id="dialog_box">
 				<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><h1><strong>{message}</strong></h1></div>
 			</div>
 		</div>
+		<!-- Yandex.Metrika counter -->
+		<script type="text/javascript">
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter14544112 = new Ya.Metrika({id:14544112,
+							accurateTrackBounce:true,
+							ut:"noindex"});
+				} catch(e) {}
+			});
+			
+			var n = d.getElementsByTagName("script")[0],
+				s = d.createElement("script"),
+				f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+			if (w.opera == "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks");
+		</script>
+		<noscript><div><img src="//mc.yandex.ru/watch/14544112?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+		<!-- /Yandex.Metrika counter -->
 	</body>
 </html>
