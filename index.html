@@ -17,16 +17,23 @@
 	<body>
 
 		<div data-role="page" id="dashboard">
-			<div data-role="header">
-				<a href="#add-post" data-icon="plus">Сообщить</a>
-				<h1><span>@Ulway</span></h1>
+
+			<div data-role="content" class="bot_info">
+				<img src="img/ulway.png" alt="" width="128" height="128">
+				<p>
+					<b>Дорожный докладатор</b> — проект, следящий блять за ёбаной дорожной обстановкой в сраном городе Ульяновске ебать.
+				</p>
 			</div>
+
+			<a href="#add-post" data-role="button" data-mini="true" data-theme="b" data-icon="plus">Сообщить обстановочку</a>
 
 			<div data-role="content" id="dashboard-list">
 
 			</div>
 
-			<div data-role="footer">...</div> 
+			<div data-role="footer">
+				<p class="footer">&copy; 2012 - @8xx8ru, @vdv73rus & #тазтим</p>
+			</div> 
 		</div>
 
 		<div data-role="page" id="add-post">
@@ -37,7 +44,7 @@
 			<div data-role="content">
 				<h2>Что?</h2>
 				<div data-role="fieldcontain" id="radio-group">
-					<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+					<fieldset data-role="controlgroup" data-mini="true">
 				        <input type="radio" name="post_type" id="radio-choice-a" value="ДПС" checked="true">
 						<label for="radio-choice-a" data-corners="true" >ДПС</label>
 
@@ -57,17 +64,17 @@
 
 				<h2>Где?</h2>
 				<div data-role="fieldcontain" id="post-where">
-					<a data-role="button" href="#add-street" id="add-street-button">Добавить улицу</a>
+					<a data-role="button" data-mini="true" data-theme="e" href="#add-street" id="add-street-button">Добавить улицу</a>
 				</div>
 				<h2>Как?</h2>
 				<div data-role="fieldcontain">
 					<textarea name="textarea" id="post_comment"></textarea>
 				</div>	
-				<h2>Твит (<span class="green" id="chars">140</span>)</h2>
+				<h3>Твит (<span class="green" id="chars">140</span>)</h3>
 				<div data-role="preview" id="preview">
 
 				</div>
-				<a data-role="button" id="submit">Отправить</a>
+				<a data-role="button" data-theme="b" id="submit">Отправить</a>
 			</div>
 		</div>
 
@@ -95,9 +102,9 @@
 				<h3>Такой улицы нет</h3>
 			</div>
 			<div id="street_input">
-				<div>
-					<input type="text" name="post_where[]" id="input_street_{id}" value="{text}"  />
-					<a data-id="{id}" id="delete_street_{id}" data-role="button" data-icon="delete" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" title="Удалить">Удалить</a>
+				<div class="street-row">
+					<input type="text" name="post_where[]" id="input_street_{id}" value="{text}" readonly />
+					<a data-id="{id}" id="delete_street_{id}" data-theme="a" data-role="button" data-icon="delete" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" title="Удалить">Удалить</a>
 				</div>
 			</div>
 			<div id="dashboard_list_item">
