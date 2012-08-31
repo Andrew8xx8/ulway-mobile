@@ -35,7 +35,10 @@
 			</div>
 
 			<div data-role="footer">
-				<p class="footer">&copy; 2012 - @8xx8ru, @vdv73rus & #тазтим</p>
+				<p class="footer">
+					&copy; 2012 - @8xx8ru, @vdv73rus & #тазтим
+					<a href="#partners" class="partners">Наши партнёры</a>
+				</p>
 			</div> 
 		</div>
 
@@ -94,6 +97,26 @@
 				<div data-role="content"  id="streets_list">
 			
 				</div>
+			</div>
+		</div>
+
+		<div data-role="page" id="partners">
+			<div data-role="header">
+				<h1>Наши партнёры</h1>
+			</div>
+			
+			<div data-role="content">
+				<p><a href="http://vk.com/pravo73" target="_blank">Сообщество «Я — ульяновский водитель»</a></p>
+				<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?52"></script>
+				<!-- VK Widget -->
+				<div id="vk_groups"></div>
+				<script type="text/javascript">
+				$( '#partners' ).live( 'pageinit',function(event){
+					VK.Widgets.Group("vk_groups", {mode: 1, width: "200", height: "290"}, 37756782);
+				});
+				</script>
+				<br>
+				<a href="index.html" data-rel="back" data-role="button" data-icon="arrow-l">Назад</a>
 			</div>
 		</div>
 
