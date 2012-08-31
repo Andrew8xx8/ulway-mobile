@@ -71,6 +71,10 @@ h2 {
 	font-weight: 100;
 	padding: 0 10px;
 }
+.footer .partners {
+	color: #fff !important;
+	float: right;
+}
 .bot_info {
 	overflow: hidden;
 }
